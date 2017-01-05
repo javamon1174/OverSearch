@@ -1,0 +1,18 @@
+{
+    "name": "javamon",
+     "description": "overwatch search",
+     "license": "MIT",
+     "authors": [
+         {
+             "name": "javamon",
+             "email": "javamon1174@gmail.com"
+         }
+     ],
+    "require": {
+        "monolog/monolog": "~1.12",
+        "phpdocumentor/phpdocumentor": "2.*"
+    },
+    "autoload":{
+        "psr-4": {"Javamon\\OverSearch\\":"src/"}
+    }
+}

@@ -1,0 +1,116 @@
+<? include_once 'header.html';?>
+<body>
+  <!-- search form -->
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <form class="navbar-form pull-right" name="myForm" role="search" onsubmit="return false;">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="닉네임#TAG" name="user" style="background-color:#5D5D5D;color:black" required>
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="submit" onclick="validateForm();"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <!-- summary -->
+      <div class="row">
+          <div class="table-responsive" id="background_form">
+            <table class="table">
+              <tbody id="borderless">
+                <tr>
+                  <td rowspan="3" style="width:120px;margin-left:2%;"><img class="img-responsive" id="icon"></img></td>
+                  <td><span id="username_tag"></span>(LV. <span id="user_level"></span>) <img id="level_img"  /></td>
+                </tr>
+                <tr>
+                  <td>
+                    경쟁전 평점 : <span id="com_grade"></span><br>
+                    최근 업데이트 : <span id="recent_date"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-warning btn-sm" id="renewal" onclick="renewal_handle();">전적갱신</button>
+                      <button type="button" class="btn btn-danger btn-sm" id="favorites">즐겨찾기</button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+           </div>
+      </div>
+      <!-- hero -->
+      <div class="row">
+        <div class="col-md-12" style="background-color:#5D5D5D; color: #8c8c8c">
+            <h3 style="text-align:center">당신의 계급은 "<span id="grade"></span>" 입니다.</h3><hr id="gray_hr">
+            <div class="table-responsive">
+            <table class="table" id="summary_table">
+              <thead>
+                <tr style="text-align:center">
+                  <th>평균 기여 처치</th>
+                  <th>평균 기여 시간</th>
+                  <th>평균 딜</th>
+                  <th>평균 죽음</th>
+                  <th>평균 처치</th>
+                  <th>평균 치유량</th>
+                  <th>평균 솔로킬</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span id="avg_contributions_kill"></span></td>
+                  <td><span id="avg_contributions_time"></span></td>
+                  <td><span id="avg_damage"></span></td>
+                  <td><span id="avg_death"></span></td>
+                  <td><span id="avg_kill"></span></td>
+                  <td><span id="avg_heal"></span></td>
+                  <td><span id="avg_solo_kill"></span></td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+            <hr id="gray_hr">
+            <h3 style="text-align:center">영웅 픽순위</h3>
+            <div class="table-responsive">
+            <table class="table" id="frequency_table">
+              <thead>
+                <tr style="text-align:center">
+                  <th>영웅</th>
+                  <th>픽순위</th>
+                  <th>승리</th>
+                  <th>승률</th>
+                  <th>킬/데스</th>
+                  <th>영웅 플레이 시간</th>
+                </tr>
+              </thead>
+              <tbody id="frequency_inner_data">
+                <!-- frequency inner data -->
+                <!-- <tr><td></td></tr> -->
+              </tbody>
+            </table>
+            </div>
+            <hr id="gray_hr">
+            <div id="heroes_inner_data">
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+  <div class="row">
+    <div id="data"></div>
+  </div>
+<!-- footer -->
+<div id="footer"></div>
+<script> $(document).ready(function() { $('#footer').load('footer.html'); }); </script>
+<!-- js function script -->
+<script type="text/javascript" src="js/functions.js"></script>
+</body>
+
+</html>

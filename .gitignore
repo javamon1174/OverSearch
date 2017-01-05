@@ -1,0 +1,6 @@
+composer.lock
+.git
+images
+output
+vendor
+.ftpconfig
