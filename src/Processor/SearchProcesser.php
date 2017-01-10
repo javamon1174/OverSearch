@@ -53,7 +53,6 @@ class SearchProcesser
      */
     protected $query_actor;
 
-
     /**
      * @access protected
      * @var String $user_idx : defined user index
@@ -106,20 +105,20 @@ class SearchProcesser
     {
         $this->init();
         $user_check = $this->GetUserIdx();
-
         if ($user_check && !$this->update_flag)
         {
+            //view
             $data = $this->UserDataLoad();
         }
 
         elseif ($user_check && $this->update_flag)
         {
+            //renew
             $this->DeleteUserData();
             $parse = $this->DataToDbFromBlizzard();
 
             if (!$parse)
                 return false;
-
             $data = $this->UserDataLoad();
         }
 

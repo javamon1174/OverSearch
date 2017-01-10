@@ -38,8 +38,10 @@ use \PDO;
 
          try {
              $dsn = "mysql:host=".$db_config["host"].";dbname=$this->database";
+
              $options = array(
                  PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES '.$this->charset,
+                 PDO::MYSQL_ATTR_INIT_COMMAND => 'SET GLOBAL max_allowed_packet=16777216;',
                  PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
                  PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
                  // PDO::ATTR_EMULATE_PREPARES   => false,

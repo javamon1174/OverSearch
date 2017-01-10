@@ -342,3 +342,9 @@ $(document).ready(function() {
         return triggerDefault;
     });
 });
+//터치 기능 없앰(확대 X)
+document.documentElement.addEventListener('touchstart', function (event) {
+  if (event.touches.length > 1) {
+    event.preventDefault();
+  }
+}, false);

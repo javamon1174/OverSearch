@@ -1,8 +1,8 @@
 @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
-body {
+html, body {
   font-family: "nanum Gothic", sans-serif;
-  background-color: #8c8c8c;
+  background-color : #8C8C8C;
   overflow-x: hidden;
 }
 .form-inline {
@@ -79,6 +79,6 @@ body{
   border-style:dotted;
 }
 
-.table>thead>tr>th {
-  border-color :#8C8C8C;
+.table-responsive {
+    border:0px!important;
 }
