@@ -1,0 +1,144 @@
+<?php
+/**
+ * Overwarch crawler from blizzard
+ *
+ * 오버워치 전적 검색
+ *
+ * Created on 2016. 11.
+ * @package      Javamon/Oversearch/Processor
+ * @category     parser
+ * @license      http://opensource.org/licenses/MIT
+ * @author       javamon <javamon1174@gmail.com>
+ * @link         http://javamon.be
+ * @version      1.2.1
+ */
+namespace Javamon\OverSearch\Processor;
+
+use Javamon\OverSearch\Config as Config;
+
+class FrequencyProcessor extends SearchProcesser
+{
+    use Config;
+
+    public function FrequencyProcesser()
+    {
+        $this->setUserNameData2Var();
+        $this->setDatabaseResouce();
+    }
+
+    public function __construct() { }
+
+    /**
+     * data of overwatch to make array data from blizzard
+     * @access protected
+     * @param   String  $data_from_blizzard     : data from blizzard
+     * @return  Array   $fanal_play_time_data   : array for insert
+     */
+    protected function TimeData2Array($data_from_blizzard)
+    {
+        $temp_play_time_data = $this->ReturnBaseArray($data_from_blizzard);
+        $play_time_data = $this->TimeDataChangeShape($temp_play_time_data);
+        $fanal_play_time_data = $this->ReturnMatchingArray($play_time_data);
+        $this->hero_time_count = count($play_time_data);
+
+        $this->RemoveResouce($data_from_blizzard);
+        $this->RemoveResouce($temp_play_time_data);
+        $this->RemoveResouce($play_time_data);
+        return $fanal_play_time_data;
+    }
+
+    /**
+     * Returns the data in a one-dimensional array.
+     * @access protected
+     * @param   String  $play_time_data         : play time data from blizzard
+     * @param   Integer $freq_index             : freq index
+     * @return  Array   $fanal_play_time_data   : matching array
+     */
+    private function ReturnMatchingArray($play_time_data, $freq_index = 1)
+    {
+        $play_time = array();
+
+        foreach ($play_time_data as $key => $hero)
+        {
+            $fanal_play_time_data[] = $key;
+            $fanal_play_time_data[] = $freq_index;
+
+            foreach ($play_time_data[$key] as $key => $value)
+            {
+                $fanal_play_time_data[] = $value;
+            }
+
+            $freq_index++;
+        }
+        return $fanal_play_time_data;
+    }
+
+    /**
+     * parse user's play time data.
+     * @access private
+     * @param   String $hero_data           : hero data from blizzard
+     * @param   String $hero_name           : hero name
+     * @return  String $hero_name_value     : return each hero data
+     */
+    private function GetPlayTimeOfUser($hero_data, $hero_name = 1)
+    {
+        preg_match("/<div class=\"title\">.*<\/div><div class=\"description\">/", $hero_data, $hero, PREG_OFFSET_CAPTURE, 3);
+        preg_match("/<div class=\"description\">.*<\/div>/", $hero_data, $time, PREG_OFFSET_CAPTURE, 3);
+        $hero_name = strip_tags($hero[0][0]);
+        $hero_value = strip_tags($time[0][0]);
+        $hero_value = str_replace("+ 모든 영웅 보기", "", $hero_value);
+
+        if ($hero_name != 'overwatch.guid.undefined')
+            return $hero_name.'|'.$hero_value;
+        else
+            return false;
+    }
+
+    /**
+     * Returns in a one-dimensional array.
+     * @access private
+     * @param   String  $data_from_blizzard     : parsed data from blizzard
+     * @return  Array   $temp_play_time_data    : one-dimensional array
+     */
+    private function ReturnBaseArray($data_from_blizzard)
+    {
+        $heroes = explode('data-show-more' , $data_from_blizzard);
+        $heroes = $heroes[0];
+        $temp_play_time_data = array();
+        $heroes = explode('progress-2 m-animated progress-category-item' , $heroes);
+        array_shift($heroes);
+        foreach ($heroes as $hero)
+        {
+            if($this->GetPlayTimeOfUser($hero) != false)
+                $temp_play_time_data[] = $this->GetPlayTimeOfUser($hero);
+        }
+        return $temp_play_time_data;
+    }
+
+    /**
+     * change array shape.
+     * @access private
+     * @param   Array $temp_play_time_data  : play time data
+     * @return  Array $play_time_data       : changed array data
+     */
+    private function TimeDataChangeShape($temp_play_time_data)
+    {
+        $exception_hero = array();
+        foreach ($temp_play_time_data as $hero => $value)
+        {
+            $temp_data = explode("|", $value);
+
+            if(in_array($temp_data[0], $exception_hero)) {
+                continue;
+            } else {
+                if ($temp_data[1] == '--')
+                $exception_hero[] = $temp_data[0];
+                else
+                $play_time_data[$temp_data[0]][] = $temp_data[1]; // $var['hero'][] = 'value';
+            }
+        }
+
+        return $play_time_data;
+    }
+}
+
