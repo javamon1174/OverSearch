@@ -2,7 +2,6 @@
 <p>해당 어플리케이션은 의존성 관리도구 Composer를 학습하기 위한 용도로 구현하였습니다.</p>
 <p>Psr4, autoload, 의존성 관리도구를 통한 Log, phpdocumentor 등 라이브러리 적용하였습니다.</p>
 <p>UI 구성은 bootstrap 프레임워크로 구현하였습니다.</p>
-<p>참고 사이트 : https://laravel.kr/docs/5.4/</p>
 | 항목        | 내용           |
 | ------------- |:-------------:|
 | 프로젝트명      | OverSearch |
