@@ -1,4 +1,4 @@
-<? include_once 'header.html';?>
+<?php include_once 'header.html';?>
 <body>
   <!-- search form -->
   <div class="row">
@@ -36,7 +36,8 @@
                 <tr>
                   <td>
                     <div class="btn-group">
-                      <button type="button" class="btn btn-warning btn-sm" id="renewal" onclick="renewal_handle();">전적갱신</button>
+                      <!-- <button type="button" class="btn btn-warning btn-sm" id="renewal" onclick="renewal_handle();">전적갱신</button> -->
+                      <button type="button" class="btn btn-warning btn-sm" id="renewal" onclick="alert('현재 새로운 기록검색이나 갱신은 블라지드 업데이트로 인하여 불가합니다.')">전적갱신</button>
                       <button type="button" class="btn btn-danger btn-sm" id="favorites">즐겨찾기</button>
                     </div>
                   </td>

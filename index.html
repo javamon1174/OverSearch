@@ -14,7 +14,7 @@ include_once 'header.html';
         <!-- form -->
         <form class="form-inline" name="myForm" action="search.html" method="get" onsubmit="return false;">
           <label for="nickname"><strong>닉네임#배틀태그를 입력해주세요.</strong></label><br>
-          <input type="text" class="form-control" id="user" name="user" placeholder="닉네임#TAG" value="뚱이#32393" required>
+          <input type="text" class="form-control" id="user" name="user" placeholder="닉네임#TAG" value="오버워치#35923" required>
           <button class="btn btn-warning" type="submit" onclick="validateForm();">검색</button>
         </form>
       </div>
@@ -27,10 +27,13 @@ include_once 'header.html';
     {
         $('#footer').load('footer.html');
     });
+    
     function validateForm()
     {
         var input = document.forms["myForm"]["user"].value;
+
         var chk = input.match(/(.)+#[0-9]{4,5}/g);
+
         if (input == null
             || input == ""
             || chk != document.forms["myForm"]["user"].value
